@@ -5,7 +5,7 @@
 
     <div class="pagetitle">
         <h1>Table Buku</h1>
-        <a class="btn btn-primary disabled" title="Create" role="button" aria-disabled="true"><i class="bi bi-plus"></i>Create</a>
+        <a class="btn btn-primary" title="Create" role="button" aria-disabled="true" href="{{ url('create') }}"><i class="bi bi-plus"></i>Create</a>
         <nav>
             <ol class="breadcrumb">
                 {{-- <li class="breadcrumb-item"><a href="index.html">Home</a></li> --}}
@@ -19,8 +19,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">No</th>
-                <th scope="col">Id</th>
                 <th scope="col">Judul</th>
                 <th scope="col">Penulis</th>
                 <th scope="col">Penerbit</th>
@@ -32,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php $i=$buku->$firstItem() ?>
+            <?php $i=$buku->firstItem(); ?>
 
             @forelse($buku as $item)
             <tr>
@@ -45,8 +43,8 @@
                 <th><img src="{{ Storage::url('public/buku').$item->gambar }}" class="rounded" style="width: 165px"></th>
                 <td>{{ $item->stok }}</td>
                 <td>
-                    <a href="{{ url('buku/' $item->id_buku) }}" class="btn btn-succes btn-sm" title="View"></a>
-                    <a href="{{ url('buku/' $item->id_buku . '/edit') }}" class="btn btn-warning btn-sm" title="Edit"></a>
+                    <a href="{{ url('buku/'. $item->id_buku) }}" class="btn btn-succes btn-sm" title="View"></a>
+                    <a href="{{ url('buku/'. $item->id_buku . '/edit') }}" class="btn btn-warning btn-sm" title="Edit"></a>
                     <form action="{{ url('buku/' . $item->id_buku) }}" class="d-inline" method="POST" onsubmit="return confirm('yakin akan menghapus data ini?')">
                         @csrf
                         @method('DELETE')
@@ -81,6 +79,7 @@
             </tr> --}}
         </tbody>
     </table>
+    {{ $buku->links() }}
     {{-- end table --}}
 </main>
 {{-- end main --}}

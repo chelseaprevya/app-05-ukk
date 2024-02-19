@@ -16,7 +16,7 @@
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
         </div>
 
-        <!-- username -->
+        <!-- telepon -->
         <div>
             <x-input-label for="no_telp" :value="__('Nomor Telepon')" />
             <x-text-input id="no_telp" class="block mt-1 w-full" type="text" name="no_telp" :value="old('no_telp')" required autofocus autocomplete="no_telp" />

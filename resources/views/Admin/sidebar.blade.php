@@ -190,7 +190,7 @@
 
       <li class="nav-item">
         {{-- nanti tinggal di koneksikan ke table buku --}}
-        <a class="nav-link collapsed" href="{{ url('index') }}">
+        <a class="nav-link collapsed" href="{{ url('buku') }}">
           <i class="bi bi-book"></i>
           <span>Buku</span>
         </a>

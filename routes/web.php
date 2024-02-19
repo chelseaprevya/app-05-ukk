@@ -51,4 +51,12 @@ Route::get('/detailbuku', function () {
     return view('detailbuku');
 });
 
+Route::get('/create', function () {
+    return view('buku.create');
+});
+
+Route::get('/buku', function () {
+    return view('buku.index');
+});
+
 Route::resource('/buku', BukuController::class);

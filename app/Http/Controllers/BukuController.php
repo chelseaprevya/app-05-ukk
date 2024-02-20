@@ -100,20 +100,43 @@ class BukuController extends Controller
             'penerbit' => 'required',
             'tahun_terbit' => 'required',
             'deskripsi' => 'required',
-            'gambar' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'gambar' => 'max:2048',
             'stok' => 'required',
             'genre' => 'required'
         ]);
 
         $buku = Buku::findOrFail($id);
 
-        $image = $request->file('gambar');
-        $image->storeAs('public/buku', $image->hashName());
-
-        Storage::delete(['public/buku/'. $buku->image]);
-        
+        if($request->hasFile('gambar')) 
+        {
+            $image = $request->file('gambar');
+            $image->storeAs('public/buku', $image->hashName());
+    
+            Storage::delete(['public/buku/'. $buku->image]);
+            $buku->update([
+            'judul' => $request->judul,
+            'penulis' => $request->penulis,
+            'penerbit' => $request->penerbit,
+            'tahun_terbit' => $request->tahun_terbit,
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $image->hashName(),
+            'stok' => $request->stok,
+            'genre' => $request->genre
+            ]);
+        }else 
+        {
+            $buku->update([
+            'judul' => $request->judul,
+            'penulis' => $request->penulis,
+            'penerbit' => $request->penerbit,
+            'tahun_terbit' => $request->tahun_terbit,
+            'deskripsi' => $request->deskripsi,
+            'stok' => $request->stok,
+            'genre' => $request->genre
+            ]);
+        }
         return redirect()->to('buku')->with('succes', 'Data Berhasil Diupdate');
-    }
+    } 
 
     /**
      * Remove the specified resource from storage.

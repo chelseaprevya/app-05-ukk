@@ -40,7 +40,8 @@
                 <td>{{ $item->penerbit }}</td>
                 <td>{{ $item->tahun_terbit }}</td>
                 <td>{{ $item->deskripsi }}</td>
-                <th><img src="{{ Storage::url('public/buku').$item->gambar }}" class="rounded" style="width: 165px"></th>
+                <th><img src="{{ url('storage/buku/'.$item->gambar) }}" class="rounded" style="width: 165px"></th>
+                {{-- <th><img src="{{ Storage::url('public/buku').$item->gambar }}" class="rounded" style="width: 165px"></th> --}}
                 <td>{{ $item->stok }}</td>
                 <td>{{ $item->genre }}</td>
                 <td>

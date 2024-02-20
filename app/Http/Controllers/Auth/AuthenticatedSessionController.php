@@ -29,6 +29,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if(Auth::user() && Auth::user()->role != 'peminjam'){
+            return redirect()->route('dashboard-admin'); // dash admin
+        } else {
+            // Auth::guard('web')->logout();
+            // return redirect()->route('login')->with('status', 'you autorizhed to access this page.11');
+            return redirect()->route('welcome');
+        }
+        
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

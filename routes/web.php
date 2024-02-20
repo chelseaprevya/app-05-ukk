@@ -18,19 +18,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/dashboard-admin', function () {
+    return view('Admin.dbAdmin');
+})->name('dashboard-admin');
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
 
 // Route::group(['middleware'=>'role:admin,petugas'], function(){
 // });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::group(['middleware'=>'role:admin,petugas'], function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -67,5 +74,4 @@ Route::get('/create', function () {
 Route::get('/buku', function () {
     return view('buku.show');
 });
-
 Route::resource('/buku', BukuController::class);

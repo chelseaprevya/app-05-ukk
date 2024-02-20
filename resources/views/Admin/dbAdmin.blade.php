@@ -19,7 +19,7 @@
                 <div class="col-lg-8">
                     <div class="row">
                         {{-- table --}}
-                        <table class="table">
+                        {{-- <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -48,10 +48,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                        
+                         --}}
                         {{-- end table --}}
 
-                        {{--
                         <!-- Sales Card -->
                         <div class="col-xxl-4 col-md-6">
                             <div class="card info-card sales-card">
@@ -113,7 +112,7 @@
                             </div>
                         </div>
                         <!-- End Sales Card -->
-                        --}} {{--
+                        {{-- --}}
                         <!-- Revenue Card -->
                         <div class="col-xxl-4 col-md-6">
                             <div class="card info-card revenue-card">
@@ -175,7 +174,7 @@
                             </div>
                         </div>
                         <!-- End Revenue Card -->
-                        --}} {{--
+                        
                         <!-- Customers Card -->
                         <div class="col-xxl-4 col-xl-12">
                             <div class="card info-card customers-card">
@@ -237,7 +236,7 @@
                             </div>
                         </div>
                         <!-- End Customers Card -->
-                        --}} {{--
+
                         <!-- Reports -->
                         <div class="col-12">
                             <div class="card">
@@ -371,7 +370,7 @@
                             </div>
                         </div>
                         <!-- End Reports -->
-                        --}} {{--
+                        
                         <!-- Recent Sales -->
                         <div class="col-12">
                             <div class="card recent-sales overflow-auto">
@@ -518,7 +517,7 @@
                             </div>
                         </div>
                         <!-- End Recent Sales -->
-                        --}} {{--
+                        
                         <!-- Top Selling -->
                         <div class="col-12">
                             <div class="card top-selling overflow-auto">
@@ -676,14 +675,13 @@
                             </div>
                         </div>
                         <!-- End Top Selling -->
-                        --}}
+                       
                     </div>
                 </div>
                 <!-- End Left side columns -->
 
                 <!-- Right side columns -->
                 <div class="col-lg-4">
-                    {{--
                     <!-- Recent Activity -->
                     <div class="card">
                         <div class="filter">
@@ -791,7 +789,7 @@
                         </div>
                     </div>
                     <!-- End Recent Activity -->
-                    --}} {{--
+
                     <!-- Budget Report -->
                     <div class="card">
                         <div class="filter">
@@ -903,7 +901,7 @@
                         </div>
                     </div>
                     <!-- End Budget Report -->
-                    --}} {{--
+                    
                     <!-- Website Traffic -->
                     <div class="card">
                         <div class="filter">
@@ -1007,7 +1005,7 @@
                         </div>
                     </div>
                     <!-- End Website Traffic -->
-                    --}} {{--
+                   
                     <!-- News & Updates Traffic -->
                     <div class="card">
                         <div class="filter">
@@ -1104,7 +1102,7 @@
                         </div>
                     </div>
                     <!-- End News & Updates -->
-                    --}}
+                    
                 </div>
                 <!-- End Right side columns -->
             </div>

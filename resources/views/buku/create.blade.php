@@ -20,6 +20,7 @@
 
             {{-- form action --}}
             <form action="{{ url('buku') }}" method="POST" class="row-lg-3" enctype="multipart/form-data">
+                @csrf
                 <div class="mb-3">
                   <label for="judul" class="form-label">Judul Buku</label>
                   <input type="text" class="form-control" id="judul" name="judul">

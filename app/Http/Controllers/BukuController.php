@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class BukuController extends Controller
 {
@@ -112,7 +113,8 @@ class BukuController extends Controller
             $image = $request->file('gambar');
             $image->storeAs('public/buku', $image->hashName());
     
-            Storage::delete(['public/buku/'. $buku->image]);
+            File::delete(['storage/buku'. '/' . $buku->gambar]);
+            // Storage::delete(['public/buku/'. $buku->image]);
             $buku->update([
             'judul' => $request->judul,
             'penulis' => $request->penulis,

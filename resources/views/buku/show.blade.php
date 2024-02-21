@@ -25,7 +25,7 @@
     <div class="container mt-5 mb-5">
         <div class="card">
             <div class="card-body-border-0 shadow sm-rounded">
-                <h4 class="card-tittle">Show Detail</h4>
+                <h4 class="card-tittle px-2 mt-2">Show Detail</h4>
                 <table class="table">
                     <thead>
                         <tr>

@@ -198,9 +198,9 @@
       <!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
+        <a class="nav-link collapsed" href="{{ route('logout') }}">
+          <i class="bi bi-box-arrow-left"></i>
+          <span>Logout</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
 

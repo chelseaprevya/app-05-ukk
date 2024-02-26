@@ -110,10 +110,17 @@ class BukuController extends Controller
 
         if($request->hasFile('gambar')) 
         {
+            if (Storage::exists('/public'. $buku->gambar)) {
+                Storage::delete('/public'. $buku->gambar);
+            }
+
             $image = $request->file('gambar');
-            $image->storeAs('public/buku', $image->hashName());
+            $name = $image->getClientOriginalName();
+            $image->storeAs('public/buku', $name);
+            $photoPath = '/buku'.$name;
+            $buku->gambar = $photoPath;
     
-            File::delete(['storage/buku'. '/' . $buku->gambar]);
+            // File::delete(public_path('/storage/buku') . $buku->gambar);
             // Storage::delete(['public/buku/'. $buku->image]);
             $buku->update([
             'judul' => $request->judul,
@@ -121,22 +128,23 @@ class BukuController extends Controller
             'penerbit' => $request->penerbit,
             'tahun_terbit' => $request->tahun_terbit,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $image->hashName(),
-            'stok' => $request->stok,
-            'genre' => $request->genre
-            ]);
-        }else 
-        {
-            $buku->update([
-            'judul' => $request->judul,
-            'penulis' => $request->penulis,
-            'penerbit' => $request->penerbit,
-            'tahun_terbit' => $request->tahun_terbit,
-            'deskripsi' => $request->deskripsi,
+            // 'gambar' => $image->hashName(),
             'stok' => $request->stok,
             'genre' => $request->genre
             ]);
         }
+        // else 
+        // {
+        //     $buku->update([
+        //     'judul' => $request->judul,
+        //     'penulis' => $request->penulis,
+        //     'penerbit' => $request->penerbit,
+        //     'tahun_terbit' => $request->tahun_terbit,
+        //     'deskripsi' => $request->deskripsi,
+        //     'stok' => $request->stok,
+        //     'genre' => $request->genre
+        //     ]);
+        // }
         return redirect()->to('buku')->with('succes', 'Data Berhasil Diupdate');
     } 
 
@@ -147,7 +155,7 @@ class BukuController extends Controller
     {
         $buku = Buku::findOrFail($id);
 
-        Storage::delete(['public/buku/'. $buku->image]);
+        Storage::delete('/public/buku/'. $buku->image);
 
         $buku->delete();
         return redirect()->to('buku')->with('succes', 'Data Berhasil Dihapus');

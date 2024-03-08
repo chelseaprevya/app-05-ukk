@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -17,13 +17,16 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'username',
-        'no_telp',
-        'email',
-        'password',
+    protected $primarykey = 'id';
+    protected $table = 'users';
+    protected $guarded = [
+        'id'
     ];
+
+    public function peminjam()
+    {
+        return $this->hasOne(Peminjaman::class, 'id_buku', 'id_buku');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,4 +47,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function koleksi() {
+        return $this->hasMany(Koleksi::class, 'id_koleksi');
+    }
 }
+

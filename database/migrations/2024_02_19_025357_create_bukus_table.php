@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('penulis');
             $table->string('penerbit');
             $table->year('tahun_terbit');
-            $table->text('deskripsi');
-            $table->string('gambar');
+            $table->text('deskripsi')->nullable();
+            $table->string('gambar')->nullable();
             $table->integer('stok');
-            $table->enum('genre', ['romance', 'fantasy', 'fiksi', 'horor']);
+            $table->string('genre');
             $table->timestamps();
         });
     }

@@ -1,18 +1,5 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Show detail</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-
-<body style="background: lightgray">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
+@extends('Admin.template')
+@section('konten')
     <main id="main" class="main">
         <div class="pagetitle">
             {{-- <h1>Table Buku</h1>
@@ -31,7 +18,7 @@
                         Form Update Data
                     </h5>
                     {{-- form action --}}
-                    <form action="{{ url('buku/' . $buku->id_buku) }}" method="POST" class="row-lg-3"
+                    <form action="{{ url('buku/update/' . $buku->id_buku) }}" method="POST" class="row-lg-3"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -64,20 +51,13 @@
                             <label for="gambar" class="col-sm-2 col-form-label">Gambar</label>
                             <div class="col-sm-10">
                                 @if ($buku->gambar)
-                                    <img src="{{ asset('/storage/buku') . $buku->gambar }}" alt=""
-                                        class="img-preview img-fluid mb-3 col-sm-10 d-block"
-                                        style="width: auto; height: 480px;">
+                                    <img src="{{ Storage::url('public/buku/') . $buku->gambar }}" alt=""
+                                        class="img-preview img-fluid mb-3 col-sm-10 d-block" style="width: auto; height: 480px;">
                                     <input type="hidden" name="oldImage" value="">
-                                    {{-- <img src="{{ env('APP_ASSETS_URL') . $buku->gambar }}" alt=""
-                                        class="img-preview img-fluid mb-3 col-sm-10 d-block"
-                                        style="width: auto; height: 480px;">
-                                    <input type="hidden" name="oldImage" value=""> --}}
                                 @else
-                                    <img class="img-preview img-fluid mb-3 col-sm-10 d-block"
-                                        style="width: auto; height: 480px;">
+                                    <img class="img-preview img-fluid mb-3 col-sm-10 d-block" style="width: auto; height: 480px;">
                                 @endif
-                                <input class="form-control" type="file" id="gambar" name="gambar"
-                                    onchange="previewImage()">
+                                <input class="form-control" type="file" id="gambar" name="gambar" onchange="previewImage()">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -88,7 +68,7 @@
                         <div class="mb-3">
                             <label for="genre" class="form-label">Genre</label>
                             <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                id="genre" name="genre" value="{{ old('genre', $buku->genre) }}">
+                                id="genre" name="genre" value="{{ old('genre', $buku->genre) }}">pe
                                 <option selected>Open this select genre</option>
                                 <option value="romance" {{ $buku->genre == 'romance' ? 'selected' : '' }}>Romance
                                 </option>
@@ -104,6 +84,4 @@
             </div>
         </div>
     </main>
-</body>
-
-</html>
+@endsection

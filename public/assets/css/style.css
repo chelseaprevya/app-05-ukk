@@ -1231,3 +1231,12 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+.hr{
+  border: none;
+  border-top: 1px dotted rgb(0, 0, 0);
+  color: #fff;
+  background-color: #fff;
+  height: 1px;
+  width: 100%;
+}

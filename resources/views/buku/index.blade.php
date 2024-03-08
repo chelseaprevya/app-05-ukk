@@ -5,7 +5,7 @@
 
         <div class="pagetitle">
             <h1>Table Buku</h1>
-            <a class="btn btn-primary" title="Create" role="button" aria-disabled="true" href="{{ url('create') }}"><i
+            <a class="btn btn-primary mt-2 " title="Create" role="button" aria-disabled="true" href="{{ url('create') }}"><i
                     class="bi bi-plus"></i>Create</a>
             <nav>
                 <ol class="breadcrumb">
@@ -41,7 +41,7 @@
                         <td>{{ $item->penerbit }}</td>
                         <td>{{ $item->tahun_terbit }}</td>
                         <td>{{ $item->deskripsi }}</td>
-                        <th><img src="{{ asset('/storage/buku/' . $item->gambar) }}" class="rounded" style="width: 165px">
+                        <th><img src="{{ asset('/storage/public/buku/' . $item->gambar) }}" class="rounded" style="width: 165px">
                         </th>
                         {{-- <th><img src="{{ Storage::url('public/buku/') . $item->gambar }}" class="rounded"
                                 style="width: 165px"> --}}
@@ -49,16 +49,16 @@
                         <td>{{ $item->stok }}</td>
                         <td>{{ $item->genre }}</td>
                         <td>
-                            <a href="{{ url('buku/' . $item->id_buku) }}" class="btn btn-danger btn-sm"
-                                title="Show">View</a>
-                            <a href="{{ url('buku/' . $item->id_buku . '/edit') }}" class="btn btn-warning btn-sm"
-                                title="Edit">Edit</a>
-                            <form action="{{ url('buku/' . $item->id_buku) }}" class="d-inline" method="POST"
+                            <a href="{{ url('buku/' . $item->id_buku) }}" class="btn btn-danger btn-sm bi bi-eye"
+                                title="Show"></a>
+                            <a href="{{ url('buku/update/' . $item->id_buku) }}" class="btn btn-warning btn-sm bi bi-pencil mt-2"
+                                title="Edit"></a>
+                            <form action="{{ url('buku/delete/' . $item->id_buku) }}" class="d-inline" method="POST"
                                 onsubmit="return confirm('yakin akan menghapus data ini?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" title="Delete" name="submit" class="btn btn-secondary btn-sm">
-                                    Delete</button>
+                                <button type="submit" title="Delete" name="submit" class="btn btn-secondary btn-sm bi bi-trash mt-2">
+                                    </button>
                             </form>
                         </td>
                     </tr>

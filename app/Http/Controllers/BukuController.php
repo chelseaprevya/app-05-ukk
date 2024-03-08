@@ -18,7 +18,7 @@ class BukuController extends Controller
      */
     public function index(): View
     {
-        $buku = buku::latest()->paginate(5);
+        $buku = Buku::latest()->paginate(5);
         return view('buku.index', compact('buku'));
     }
 
@@ -27,7 +27,7 @@ class BukuController extends Controller
      */
     public function create(): View
     {
-       return view('buku.create');
+        return view('buku.create');
     }
 
     /**
@@ -35,42 +35,34 @@ class BukuController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-       $this->validate($request , [
-        'judul' => 'required',
-        'penulis' => 'required',
-        'penerbit' => 'required',
-        'tahun_terbit' => 'required',
-        'deskripsi' => 'required',
-        'gambar' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-        'stok' => 'required',
-        'genre' => 'required'
-       ], [
-        'judul.required' => 'judul diisi',
-        'penulis.required' => 'penulis diisi',
-        'penerbit.required' => 'penerbit diisi',
-        'tahun_terbit.required' => 'tahun_terbit diisi',
-        'deskripsi.required' => 'deskripsi diisi',
-        'gambar.required' => 'gambar diisi',
-        'genre.required' => 'genre diisi'
-       ]);
+        $data = $request->validate([
+            'judul' => 'required',
+            'penulis' => 'required',
+            'penerbit' => 'required',
+            'tahun_terbit' => 'required',
+            'deskripsi' => 'required',
+            'gambar' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'stok' => 'required',
+            'genre' => 'required'
+        ], [
+            'judul.required' => 'judul diisi',
+            'penulis.required' => 'penulis diisi',
+            'penerbit.required' => 'penerbit diisi',
+            'tahun_terbit.required' => 'tahun_terbit diisi',
+            'deskripsi.required' => 'deskripsi diisi',
+            'gambar.required' => 'gambar diisi',
+            'genre.required' => 'genre diisi'
+        ]);
 
-       $image = $request->file('gambar');
-       $image->storeAs('public/buku', $image->hashName());
+        $image = $request->file('gambar');
+        $imageName = $image->getClientOriginalName();
+        $image->storeAs('public/buku', $imageName);
 
-       $buku = [
-        'judul' => $request->judul,
-        'penulis' => $request->penulis,
-        'penerbit' => $request->penerbit,
-        'tahun_terbit' => $request->tahun_terbit,
-        'deskripsi' => $request->deskripsi,
-        'gambar' => $image->hashName(),
-        'stok' => $request->stok,
-        'genre' => $request->genre
-       ];
+        $data['gambar'] = $imageName;
 
-       buku::create($buku);
-       return redirect()->to('buku')->with('succes', 'Data Berhasil Ditambahkan');
-    }   
+        buku::create($data);
+        return redirect()->to('buku')->with('succes', 'Data Berhasil Ditambahkan');
+    }
 
     /**
      * Display the specified resource.
@@ -84,69 +76,44 @@ class BukuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): View
+    public function edit(buku $buku): View
     {
-        $buku = Buku::findOrFail($id);
         return view('buku.update', compact('buku'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, buku $buku): RedirectResponse
     {
-        $this->validate($request , [
+        $data = $request->validate([
             'judul' => 'required',
             'penulis' => 'required',
             'penerbit' => 'required',
             'tahun_terbit' => 'required',
-            'deskripsi' => 'required',
-            'gambar' => 'max:2048',
+            'deskripsi' => 'nullable',
+            'gambar' => 'max:255|nullable',
             'stok' => 'required',
             'genre' => 'required'
+        ], [
+            'judul.required' => 'judul diisi',
+            'penulis.required' => 'penulis diisi',
+            'penerbit.required' => 'penerbit diisi',
+            'tahun_terbit.required' => 'tahun_terbit diisi',
+            'genre.required' => 'genre diisi'
         ]);
 
-        $buku = Buku::findOrFail($id);
-
-        if($request->hasFile('gambar')) 
-        {
-            if (Storage::exists('/public'. $buku->gambar)) {
-                Storage::delete('/public'. $buku->gambar);
-            }
-
+        if ($request['gambar']) {
             $image = $request->file('gambar');
-            $name = $image->getClientOriginalName();
-            $image->storeAs('public/buku', $name);
-            $photoPath = '/buku'.$name;
-            $buku->gambar = $photoPath;
-    
-            // File::delete(public_path('/storage/buku') . $buku->gambar);
-            // Storage::delete(['public/buku/'. $buku->image]);
-            $buku->update([
-            'judul' => $request->judul,
-            'penulis' => $request->penulis,
-            'penerbit' => $request->penerbit,
-            'tahun_terbit' => $request->tahun_terbit,
-            'deskripsi' => $request->deskripsi,
-            // 'gambar' => $image->hashName(),
-            'stok' => $request->stok,
-            'genre' => $request->genre
-            ]);
+            $imageName = $image->getClientOriginalName();
+            File::delete(public_path('/storage/public/buku') . $buku->gambar);
+            $image->storeAs('public/buku', $imageName);
+            
+            $data['gambar'] = $imageName;
         }
-        // else 
-        // {
-        //     $buku->update([
-        //     'judul' => $request->judul,
-        //     'penulis' => $request->penulis,
-        //     'penerbit' => $request->penerbit,
-        //     'tahun_terbit' => $request->tahun_terbit,
-        //     'deskripsi' => $request->deskripsi,
-        //     'stok' => $request->stok,
-        //     'genre' => $request->genre
-        //     ]);
-        // }
+        $buku->update($data);
         return redirect()->to('buku')->with('succes', 'Data Berhasil Diupdate');
-    } 
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -155,7 +122,7 @@ class BukuController extends Controller
     {
         $buku = Buku::findOrFail($id);
 
-        Storage::delete('/public/buku/'. $buku->image);
+        Storage::delete('/public/buku/' . $buku->image);
 
         $buku->delete();
         return redirect()->to('buku')->with('succes', 'Data Berhasil Dihapus');

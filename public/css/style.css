@@ -958,7 +958,7 @@ ol {
 }
 
 .anime__details__text p {
-	color: #b7b7b7;
+	color: #faebeb;
 	font-size: 18px;
 	line-height: 30px;
 }
@@ -1005,7 +1005,7 @@ ol {
 
 .anime__details__title span {
 	font-size: 15px;
-	color: #b7b7b7;
+	color: #f0f0f0;
 	display: block;
 }
 
@@ -1051,12 +1051,12 @@ ol {
 	top: 12px;
 	height: 6px;
 	width: 6px;
-	background: #b7b7b7;
+	background: #ffffff;
 	content: "";
 }
 
 .anime__details__widget ul li span {
-	color: #b7b7b7;
+	color: #ffffff;
 	width: 115px;
 	display: inline-block;
 }

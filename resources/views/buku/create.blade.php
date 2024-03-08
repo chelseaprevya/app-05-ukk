@@ -19,7 +19,7 @@
             </h5> 
 
             {{-- form action --}}
-            <form action="{{ url('buku') }}" method="POST" class="row-lg-3" enctype="multipart/form-data">
+            <form action="{{ url('buku/create') }}" method="POST" class="row-lg-3" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                   <label for="judul" class="form-label">Judul Buku</label>
